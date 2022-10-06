@@ -4,10 +4,9 @@ const Schema = mongoose.Schema;
 const Comment = new Schema({
   author: { type: String, required: true },
   text: { type: String, required: true },
-  date: Date,
   blog: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Blog",
+    ref: "blog",
   },
 });
 
