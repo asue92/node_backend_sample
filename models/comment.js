@@ -4,10 +4,7 @@ const Schema = mongoose.Schema;
 const Comment = new Schema({
   author: { type: String, required: true },
   text: { type: String, required: true },
-  blog: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "blog",
-  },
+  blogId: { type: String, required: true },
 });
 
 module.exports = mongoose.model("comment", Comment);

@@ -15,7 +15,7 @@ postComment = async (req, res) => {
   }
   const { author, text } = req.body;
 
-  const newComment = await Comment.create({ author, text });
+  const newComment = await Comment.create({ author, text, blogId: id });
   await Blog.findOneAndUpdate({ id }, { $push: { comments: newComment } }, { new: true })
     .then((doc) => {
       return res.status(201).json({
