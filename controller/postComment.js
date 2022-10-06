@@ -16,12 +16,20 @@ postComment = async (req, res) => {
   const { author, text } = req.body;
 
   const newComment = await Comment.create({ author, text });
-  const blog = await Blog.findOneAndUpdate(
-    { id },
-    { $push: { comments: newComment } },
-    { new: true }
-  );
-  res.send(blog);
+  await Blog.findOneAndUpdate({ id }, { $push: { comments: newComment } }, { new: true })
+    .then((doc) => {
+      return res.status(201).json({
+        success: true,
+        data: doc,
+        message: "Comment created!",
+      });
+    })
+    .catch((error) => {
+      return res.status(400).json({
+        error,
+        message: "Comment not created!",
+      });
+    });
 };
 
 module.exports = { postComment };
